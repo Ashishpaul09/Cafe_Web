@@ -57,7 +57,7 @@ export default function AboutSection() {
                 className="w-16 h-16 rounded-full object-cover" 
               />
               <div>
-                <h4 className="font-bold text-[#8B4513] font-display">Michael Chen</h4>
+                <h4 className="font-bold text-[#8B4513] font-display">Ashish Paul</h4>
                 <p className="text-gray-600 text-sm">Founder & Head Barista</p>
               </div>
             </div>
