@@ -9,10 +9,10 @@ app.use(express.urlencoded({ extended: false }));
 
 // Validation schemas
 const contactFormSchema = z.object({
-  name: z.string().min(2),
-  email: z.string().email(),
-  subject: z.string(),
-  message: z.string().min(10)
+  name: z.string().min(2).max(100),
+  email: z.string().email().max(255),
+  subject: z.string().min(1).max(200),
+  message: z.string().min(10).max(2000)
 });
 
 const newsletterFormSchema = z.object({
@@ -24,12 +24,13 @@ app.post("/api/contact", async (req, res) => {
   try {
     // Validate request body
     const validatedData = contactFormSchema.parse(req.body);
-    
+
     // In a real app, this would save to the database and send an email
     // For this demo, we'll just return a success response
-    res.status(200).json({ 
-      success: true, 
-      message: "Contact form submitted successfully" 
+    res.status(200).json({
+      success: true,
+      message: "Contact form submitted successfully",
+      data: { name: validatedData.name, email: validatedData.email }
     });
   } catch (error) {
     if (error instanceof z.ZodError) {
@@ -53,12 +54,13 @@ app.post("/api/newsletter", async (req, res) => {
   try {
     // Validate request body
     const validatedData = newsletterFormSchema.parse(req.body);
-    
+
     // In a real app, this would save to a newsletter subscription database
     // For this demo, we'll just return a success response
-    res.status(200).json({ 
-      success: true, 
-      message: "Newsletter subscription successful" 
+    res.status(200).json({
+      success: true,
+      message: "Newsletter subscription successful",
+      email: validatedData.email
     });
   } catch (error) {
     if (error instanceof z.ZodError) {
@@ -78,7 +80,7 @@ app.post("/api/newsletter", async (req, res) => {
 });
 
 // Health check endpoint
-app.get("/api/health", (req, res) => {
+app.get("/api/health", (_req, res) => {
   res.status(200).json({ status: "OK", timestamp: new Date().toISOString() });
 });
 

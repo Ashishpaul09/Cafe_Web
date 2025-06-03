@@ -103,8 +103,12 @@ The project has been configured with:
 
 1. `vercel.json` - Vercel configuration
 2. `api/index.js` - Serverless function for API routes
-3. `.vercelignore` - Files to exclude from deployment
-4. Updated `package.json` scripts
+3. `api/db.js` - Database configuration optimized for serverless
+4. `api/schema.js` - Database schema for serverless functions
+5. `.vercelignore` - Files to exclude from deployment
+6. `.env.example` - Environment variables template
+7. `deploy.sh` - Deployment script
+8. Updated `package.json` scripts
 
 ## Troubleshooting
 
